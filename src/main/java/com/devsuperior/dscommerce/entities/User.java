@@ -1,93 +1,107 @@
 package com.devsuperior.dscommerce.entities;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_user")
 public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
-	public List<Order> getOrders() {
-		return orders;
-	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
 
-	private String nome;
-	
-	@Column(unique = true)
-	private String email;
-	private String phone;
-	private LocalDate bithDate;
-	
-	@OneToMany(mappedBy = "client")
-	private List<Order> orders = new ArrayList<>();
-	
-	public User() {
-		
-	}
+    @Column(unique = true)
+    private String email;
+    private String phone;
+    private LocalDate birthDate;
+    private String password;
 
-	public User(Long id, String nome, String email, String phone, LocalDate bithDate) {
-		super();
-		Id = id;
-		this.nome = nome;
-		this.email = email;
-		this.phone = phone;
-		this.bithDate = bithDate;
-	}
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
 
-	public Long getId() {
-		return Id;
-	}
+    public User() {
+    }
 
-	public void setId(Long id) {
-		Id = id;
-	}
+    public User(Long id, String name, String email, String phone, LocalDate birthDate, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.birthDate = birthDate;
+        this.password = password;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public LocalDate getBithDate() {
-		return bithDate;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setBithDate(LocalDate bithDate) {
-		this.bithDate = bithDate;
-	}
-	
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+  
 }

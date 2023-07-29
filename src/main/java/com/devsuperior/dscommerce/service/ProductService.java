@@ -1,5 +1,7 @@
 package com.devsuperior.dscommerce.service;
 
+import java.awt.print.Pageable;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +16,21 @@ import com.devsuperior.dscommerce.repositories.ProductRepository;
 public class ProductService {
 	
 	@Autowired
-	private ProductRepository repositry;
+	private ProductRepository repository;
 	
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
-		Optional<Product> result = repositry.findById(id);
-		Product product = result.get();
-		ProductDTO dto = new ProductDTO(product);
-		return dto;
+		Product product = repository.findById(id).get();
+		return new ProductDTO(product);
+		
+		
+	}
+	@Transactional(readOnly = true)
+	public List<ProductDTO> findAll(Pageable pageable) {
+		List<Product> result = repository.findAll();
+		return new ProductDTO(product);
+		
+		
 		
 	}
 
