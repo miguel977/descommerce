@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.dscommerce.dto.ProductDTO;
+import com.devsuperior.dscommerce.service.DatabaseException;
 import com.devsuperior.dscommerce.service.ProductService;
 
 @RestController
@@ -50,7 +51,7 @@ public class ProductController {
 		
 	}
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@PathVariable Long id) throws DatabaseException, EntityResultAccessException {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
