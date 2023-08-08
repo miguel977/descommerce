@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.dscommerce.controllers.EntityResultAccessException;
 import com.devsuperior.dscommerce.dto.ProductDTO;
 import com.devsuperior.dscommerce.entities.Product;
 import com.devsuperior.dscommerce.repositories.ProductRepository;
@@ -40,6 +39,10 @@ public class ProductService {
 	        entity = repository.save(entity);
 	        return new ProductDTO(entity);
 	    }
+	private void copyDtoToEntity(ProductDTO dto, Product entity) {
+		// TODO Auto-generated method stub
+		
+	}
 	@Transactional
 	public ProductDTO update(Long id, ProductDTO dto) {
 		try {
@@ -55,21 +58,21 @@ public class ProductService {
 		
 	}
 	
-	private void copyDtoToEntity(ProductDTO dto, Product entity) {
+	@Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id) {
+    	if (!repository.existsById(id)) {
+    		throw new ResourceNotFoundException("Recurso não encontrado");
+    	}
+    	try {
+            repository.deleteById(id);    		
+    	}
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
+        }
+    
 		
 		
 	}
-	@Transactional(propagation = Propagation.SUPPORTS)
-	public void delete(Long id){
-		try {
-	        	repository.deleteById(id);    		
-		}
-		catch(EntityResultAccessException e) {
-			throw new ResourceNotFoundException("Recurso não encontrado");
-		}
-		catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Falha de integridade referencial");
-        }
-    }
+	
 		
 }
