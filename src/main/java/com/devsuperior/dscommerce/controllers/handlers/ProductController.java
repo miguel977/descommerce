@@ -1,4 +1,4 @@
-package com.devsuperior.dscommerce.controllers;
+package com.devsuperior.dscommerce.controllers.handlers;
 
 
 
@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.dscommerce.dto.ProductDTO;
 import com.devsuperior.dscommerce.service.DatabaseException;
 import com.devsuperior.dscommerce.service.ProductService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -56,7 +57,7 @@ public class ProductController {
 		return ResponseEntity.noContent().build();
 	}
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ProductDTO> update(@PathVariable Long id,@Valid @RequestBody ProductDTO dto) {
+	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok(dto);
 	}

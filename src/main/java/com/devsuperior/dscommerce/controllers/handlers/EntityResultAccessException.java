@@ -1,4 +1,4 @@
-package com.devsuperior.dscommerce.controllers;
+package com.devsuperior.dscommerce.controllers.handlers;
 
 public class EntityResultAccessException extends Exception {
 

@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.devsuperior.dscommerce.entities.Product;
 
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 @SuppressWarnings("deprecation")
 public class ProductDTO {
