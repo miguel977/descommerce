@@ -16,98 +16,102 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_user")
 public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String name;
+	
+	@Column(unique = true)
+	private String email;
+	private String phone;
+	private LocalDate birthDate;
+	private String password;
+	
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
+	
+	public User() {
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+	public User(Long id, String name, String email, String phone, LocalDate birthDate, String password) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.birthDate = birthDate;
+		this.password = password;
+	}
 
-    @Column(unique = true)
-    private String email;
-    private String phone;
-    private LocalDate birthDate;
-    private String password;
+	public Long getId() {
+		return id;
+	}
 
-    @OneToMany(mappedBy = "client")
-    private List<Order> orders = new ArrayList<>();
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public User() {
-    }
+	public String getName() {
+		return name;
+	}
 
-    public User(Long id, String name, String email, String phone, LocalDate birthDate, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.birthDate = birthDate;
-        this.password = password;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
+	public List<Order> getOrders() {
+		return orders;
+	}
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(id, other.id);
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        return Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-  
+	
+	
 }
